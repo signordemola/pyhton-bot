@@ -10,7 +10,7 @@ def create_bot() -> Application:
     """Create and configure the bot application"""
     app = Application.builder().token(settings.BOT_TOKEN).build()
 
-    # Add handlers
+    # All handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_menu))
