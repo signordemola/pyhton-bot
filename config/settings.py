@@ -6,7 +6,7 @@ load_dotenv()
 
 class Config:
     BOT_TOKEN = os.getenv('BOT_TOKEN')
-    DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+    DEBUG = False
     ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
     DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///bot.db')
 

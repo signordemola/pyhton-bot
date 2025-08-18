@@ -3,6 +3,8 @@ from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.constants import ChatAction
 from telegram.ext import CallbackContext
 
+from database.models import sql_cursor, User
+
 
 async def show_profile(update: Update, context: CallbackContext) -> None:
     await context.bot.send_chat_action(
@@ -14,16 +16,27 @@ async def show_profile(update: Update, context: CallbackContext) -> None:
     username = user.username or 'Not set'
     user_id = user.id or 'Not set'
 
+    balance = 0.0
+    purchases = 0
+
+    with sql_cursor() as session:
+        db_user = session.query(User).filter(User.telegram_id == user.id).first()
+
+        if db_user:
+            balance = float(db_user.balance)
+            purchases = db_user.purchases
+
+
     profile_text = f"""
-    👤 Your Profile
+👤 Your Profile
 
-    👨‍💼 Username: {username}
+👨‍💼 Username: {username}
 
-    🆔 ID: {user_id}
+🆔 ID: {user_id}
 
-    💰 Balance: $0
+💰 Balance: ${balance:.2f}
 
-    🛒 Purchases: 0
+🛒 Purchases: {purchases}
     """
 
     topup_button = InlineKeyboardButton("💸 Top-up balance", callback_data="topup")

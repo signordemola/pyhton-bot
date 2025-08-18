@@ -1,7 +1,7 @@
 import enum
-from sqlalchemy import Column, Integer, String, Numeric, DateTime, Boolean, ForeignKey, Enum as SQLAlchemyEnum, func, \
-    create_engine
+from sqlalchemy import Column, BigInteger, Integer, String, Numeric, DateTime, Boolean, ForeignKey, Enum as SQLAlchemyEnum, func, create_engine
 from sqlalchemy.orm import relationship, declarative_base, sessionmaker
+from contextlib import contextmanager
 
 from config.settings import settings
 
@@ -9,7 +9,20 @@ con_str = settings.DATABASE_URL
 Engine = create_engine(con_str, echo=True, pool_size=100)
 Base = declarative_base()
 
-Session = sessionmaker(bind=Engine)
+
+@contextmanager
+def sql_cursor():
+    Cursor = sessionmaker(Engine)
+    session = Cursor()
+
+    try:
+        yield session
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise e
+    finally:
+        session.close()
 
 
 class OrderStatus(enum.Enum):
@@ -35,7 +48,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    telegram_id = Column(Integer, unique=True, index=True, nullable=False)
+    telegram_id = Column(BigInteger, unique=True, index=True, nullable=False)
     username = Column(String(255), nullable=True)
     first_name = Column(String(255), nullable=True)
     balance = Column(Numeric(10, 2), default=0.0, nullable=False)
