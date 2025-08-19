@@ -7,6 +7,8 @@ from database.models import sql_cursor, User
 
 
 async def show_profile(update: Update, context: CallbackContext) -> None:
+    """Display user profile information"""
+
     await context.bot.send_chat_action(
         chat_id=update.effective_chat.id,
         action=ChatAction.TYPING
@@ -39,9 +41,21 @@ async def show_profile(update: Update, context: CallbackContext) -> None:
 🛒 Purchases: {purchases}
     """
 
-    topup_button = InlineKeyboardButton("💸 Top-up balance", callback_data="topup")
-    reply_markup = InlineKeyboardMarkup([[topup_button]])
+    add_balance_button = InlineKeyboardButton("💸 Add To Balance", callback_data="add_balance")
+    reply_markup = InlineKeyboardMarkup([[add_balance_button]])
+
     await update.message.reply_text(
         profile_text.strip(),
         reply_markup=reply_markup
     )
+
+async def handle_profile_add_balance(update: Update, context: CallbackContext) -> None:
+    """Handle add balance button click from profile (InlineKeyboard)"""
+
+    await context.bot.send_chat_action(
+        chat_id=update.effective_chat.id,
+        action=ChatAction.TYPING
+    )
+
+    query = update.callback_query
+    await query.answer("💰 Contact admin to add balance!")
