@@ -11,7 +11,7 @@ def add_sample_products():
         {"name": "Gaming Credits", "description": "25 gaming platform credits", "price": 20.00, "stock": 100},
         {"name": "Domain Registration (.com)", "description": "1-year domain registration", "price": 11.50,
          "stock": 75},
-        {"name": "Web Hosting Plan (Basic)", "description": "1-month basic web hosting", "price": 5.99, "stock": 0},
+        {"name": "Web Hosting Plan (Basic)", "description": "1-month basic web hosting", "price": 5.99, "stock": 12},
         {"name": "Discord Nitro", "description": "1-month Discord Nitro subscription", "price": 9.99, "stock": 40},
         {"name": "YouTube Premium", "description": "1-month YouTube Premium", "price": 13.99, "stock": 0},
         {"name": "Online Course: Python Basics", "description": "Self-paced course on Python", "price": 49.99,

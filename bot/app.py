@@ -1,11 +1,10 @@
 import logging
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler
 
-from bot.handlers.admin import admin_command
 from bot.handlers.products import handle_add_balance
 from config.settings import settings
 from bot.handlers.commands import start, help_command
-from bot.handlers.callbacks import handle_menu
+from bot.handlers.callbacks import handle_menu, admin_command
 
 logger = logging.getLogger(__name__)
 

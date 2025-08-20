@@ -3,7 +3,7 @@ from telegram import Update
 from telegram.constants import ChatAction
 from telegram.ext import ContextTypes
 
-from bot.keyboards.menu import main_menu
+from bot.keyboards.home import main_menu
 from config.settings import settings
 from database.models import sql_cursor, User
 
@@ -31,7 +31,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     telegram_id=user.id,
                     username=user.username,
                     first_name=user.first_name,
-                    balance=0.0,
+                    balance=100.0,
                     purchases=0,
                     is_active=True
                 )

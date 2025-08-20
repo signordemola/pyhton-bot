@@ -1,6 +1,6 @@
 from telegram import ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
 
-from bot.keyboards.menu import MENU_BUTTONS
+from bot.keyboards.home import MENU_BUTTONS
 from database.models import Product, sql_cursor, User
 
 

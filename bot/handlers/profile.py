@@ -18,8 +18,7 @@ async def show_profile(update: Update, context: CallbackContext) -> None:
     username = user.username or 'Not set'
     user_id = user.id or 'Not set'
 
-    balance = 0.0
-    purchases = 0
+
 
     with sql_cursor() as session:
         db_user = session.query(User).filter(User.telegram_id == user.id).first()
@@ -27,6 +26,9 @@ async def show_profile(update: Update, context: CallbackContext) -> None:
         if db_user:
             balance = float(db_user.balance)
             purchases = db_user.purchases
+        else:
+            balance = 0.0
+            purchases = 0
 
 
     profile_text = f"""

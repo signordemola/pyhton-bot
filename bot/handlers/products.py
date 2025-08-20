@@ -4,7 +4,7 @@ from telegram.ext import ContextTypes
 from sqlalchemy import func
 
 from bot.keyboards.products import products_keyboard, create_product_detail_keyboard
-from bot.keyboards.menu import main_menu
+from bot.keyboards.home import main_menu
 from database.models import sql_cursor, Product, User, Order, Transaction, OrderStatus, TransactionType, TransactionStatus
 
 
