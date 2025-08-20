@@ -1,14 +1,21 @@
 from sqlalchemy import func
 from telegram import Update
+from telegram.constants import ChatAction
 from telegram.ext import ContextTypes
 
 from bot.keyboards.menu import main_menu
 from config.settings import settings
 from database.models import sql_cursor, User
-from database.users import get_or_create_user
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Star Bot Application"""
+
+    await context.bot.send_chat_action(
+        chat_id=update.effective_chat.id,
+        action=ChatAction.TYPING
+    )
+
     try:
         user = update.effective_user
 
@@ -30,8 +37,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 )
 
                 session.add(new_user)
-                print(f"New user created: {new_user.telegram_id} {new_user.username}")
-
 
         welcome_text = f"""
         🎉 Welcome to Our Bot, {user.first_name}!
@@ -58,6 +63,5 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         """
         await update.message.reply_text(help_text.strip())
     except Exception as e:
-        if settings.debug:
-            print(f"Error in help: {e}")
-        await update.message.reply_text("Something went wrong. Try again.")
+        print(f"Error in help: {e}")
+        await update.message.reply_text("Something went wrong, Try again!")

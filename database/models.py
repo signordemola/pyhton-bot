@@ -61,7 +61,7 @@ class User(Base):
     orders = relationship("Order", back_populates="user")
     transactions = relationship("Transaction", back_populates="user")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<User(id={self.id}, telegram_id={self.telegram_id}, username={self.username})>"
 
 
@@ -78,7 +78,7 @@ class Product(Base):
 
     orders = relationship("Order", back_populates="product")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Product(id={self.id}, name={self.name}, price={self.price})>"
 
 
@@ -99,7 +99,7 @@ class Order(Base):
     user = relationship("User", back_populates="orders")
     product = relationship("Product", back_populates="orders")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Order(id={self.id}, user_id={self.user_id}, product_id={self.product_id}, status={self.status.value})>"
 
 
@@ -117,7 +117,7 @@ class Transaction(Base):
 
     user = relationship("User", back_populates="transactions")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Transaction(id={self.id}, user_id={self.user_id}, amount={self.amount}, type={self.transaction_type.value})>"
 
 def create_tables():

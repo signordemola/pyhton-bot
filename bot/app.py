@@ -1,6 +1,7 @@
 import logging
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler
 
+from bot.handlers.admin import admin_command
 from bot.handlers.products import handle_add_balance
 from config.settings import settings
 from bot.handlers.commands import start, help_command
@@ -15,6 +16,7 @@ def create_bot() -> Application:
     # Command handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("admin", admin_command))
 
     # Callback query handlers (only for profile add balance)
     app.add_handler(CallbackQueryHandler(handle_add_balance, pattern=r'^add_balance'))
