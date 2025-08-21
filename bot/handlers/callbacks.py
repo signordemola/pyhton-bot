@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.constants import ChatAction
 from telegram.ext import ContextTypes
 
+from bot.handlers.admin.navigation import handle_admin_navigation
 from bot.keyboards.admin import (
     ADMIN_BUTTONS, PRODUCT_BUTTONS, USER_BUTTONS, TRANSACTION_BUTTONS,
     ORDER_BUTTONS, ANALYTICS_BUTTONS, admin_menu
@@ -12,7 +13,6 @@ from bot.handlers.products import show_products, handle_product_click
 from bot.handlers.profile import show_profile
 from bot.handlers.support import show_support
 from bot.handlers.web_develop import show_web_develop
-from bot.handlers.admin import handle_admin_navigation
 from bot.utils.admin_auth import admin_required, is_user_admin
 import logging
 
